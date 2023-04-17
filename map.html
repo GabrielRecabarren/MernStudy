@@ -64,14 +64,76 @@
                                 <p>interfaces</p>
                                 <p>models</p>
                                 <p>routes</p>
-                                <p></p></ul>
+                                <p>schemes</p></ul>
+                            
                         </ul>
                         <li>interfaces/HTTP</li>
                             <p>Rutas de exposición</p>
                             <ul><li>routes.ts</li>
                             <p>Se establecen las rutas padre con el patrón de diseño Chain of Responsability, middleware y funciones de rutas hijas</p></ul>
                        <li>shared/globals</li>
-                        </ul>
+                       <p>Centralizar el almacenamiento de clases globales para facilitar su acceso y modificacion en todo el proyecto</p>
+                    <ul>
+                        <li>Decorators</li>
+                        <p>Permitiran hacer inyecciones logicas adicionales a contextos que ya existen en otros lados del proyecto (*consultar más ejemplos)</p>
+                        <ul><li>joi-validation.decorators.ts</li>
+                        <p> joi es un decorador que servira para validar que la estructura de un schema se cumpla </p></ul>
+                        <li>Services</li>  
+                        <p>Abstracciones de la lógica de negocio</p>
+                        <ul>
+                            <li>db</li>
+                            <p>Funciones de consulta y solicitud a la base de datos. Se abstrae aquí por la arquitectura onion.</p>
+                            <ul><li>auth.service.ts</li>
+                            <li>user.service.ts</li></ul>
+                            <li>emails</li>
+                            <p>Lógica para el envío de correos</p>
+                            <ul><li>mail.transport.ts</li></ul>
+                            <li>queues</li>
+                            <p>Manejo de colas de procesos</p>
+                            <ul>
+                                <li>base.queue.ts</li>
+                                <p>Clase principal que van heredar las otros queues. Se establecen las principales configuraciones y funciones con bull y bull-board/express (crear el dashboard de los queues, funcion para agregar jobs y procesar jobs).</p>
+                                <li>auth.queue.ts</li>
+                                <p>Clase heredada del base.queue , en ella se establece el nombre del job y su funcionalidad la cual sera agregar el usuario a la DB en la coleccion auth cuando se registre por primera vez</p>
+                                <li>email.queue.ts
+                                    
+                                </li>
+                                <p>Clase heredada del base.queue, se establece el nombre del job y su funcionalidad para el envío de mail si hay olvido de clave</p>
+                                <li>user.queue.ts
+                                </li>
+                                <p>Clase heredada del base.queue , en ella se establece el nombre del job y su funcionalidad la cual sera agregar el usuario a la DB en la coleccion USER cuando se registre por primera vez</p>
+                            </ul>
+
+                            <li>redis</li>
+                            <p>Memoria temporal (Caché) que habilita un servidor de redis para manejo de información con alta disponibilidad</p>
+                            <ul>
+                                <li>base.cache.ts</li>
+                                <li>redis.connection.ts</li>
+                                <li>user.cache.ts</li>
+
+                            </ul>
+                            
+                        </ul>                      
+                        <li>Workers</li>
+                        <p>Definiciones a nivel de app para manipular procesos de forma eficiente para el servidor </p>
+                        <li>Helpers</li>
+                        <p>Abstracciones de definiciones genericas que se utilizan en múltiples partes de la app que descongestionan el flujo principal</p>
+                            <ul>
+                                <li>Cloudinary</li>
+                                <p>Función con las configuraciones de subida de archivos de imagen y video a Cloudinary</p>
+                                <li>Errors</li>
+                                <p>Clases con las distintas definiciones de errores disponibles en el proyecto</p>
+                                <li>Generators</li>
+                                <p>Abstracciones para satisfacer situaciones específicas (ej:transformar formato)</p>
+                                <li>Middleware</li>
+                                <p>Son rutas con logicas que se pueden inyectar para definir nuevos comportamientos en mi servidor de express, las cuales tienen un flujo concatenado y sincrono de ejecucion por ej: rutas, configuraciones , validaciones etc.
+                                </p>
+                                <ul><li>Auth-middleware.ts</li>
+                                <p>Autorización de usuario</p></ul>
+                            </ul>
+                            </ul>
+                    </ul>    
+                    </ul>
 
                 </li>
             </ul>
