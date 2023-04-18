@@ -84,7 +84,10 @@
                             <li>db</li>
                             <p>Funciones de consulta y solicitud a la base de datos. Se abstrae aquí por la arquitectura onion.</p>
                             <ul><li>auth.service.ts</li>
-                            <li>user.service.ts</li></ul>
+                                <p>en el maneja la creación y búsqueda de usuarios de autenticación en una base de datos. Tiene tres métodos: "createAuthUser" para crear un nuevo usuario, "getUserByUsernameOrEmail" y "getAuthUserByUsername" para buscar un usuario por nombre de usuario o correo electrónico.
+                                </p>
+                            <li>user.service.ts</li>
+                                <p></p></ul>
                             <li>emails</li>
                             <p>Lógica para el envío de correos</p>
                             <ul><li>mail.transport.ts</li></ul>
@@ -108,14 +111,25 @@
                             <p>Memoria temporal (Caché) que habilita un servidor de redis para manejo de información con alta disponibilidad</p>
                             <ul>
                                 <li>base.cache.ts</li>
+                                <p>en el se establece una clase abstracta en la cual dentro esta la configuracion para crear un client de redis y un metodo para los errores de redis</p>
                                 <li>redis.connection.ts</li>
+                                <p>se crea una clase heredada de la clase abstracta del base, en la cual dentro se establece las configuraciones para conectar redis en el archivo de setUpdatabase.bootstrap</p>
                                 <li>user.cache.ts</li>
+                                <p> La clase "UserCache" guarda y recupera datos de usuario en caché utilizando Redis. Tiene dos métodos: "saveToUserCache" para guardar datos y "getUserFromCache" para recuperar datos. Si hay un error, lanza una excepción "ServerError" y utiliza la biblioteca "Bunyan" para registrar los errores.</p>
 
                             </ul>
                             
                         </ul>                      
                         <li>Workers</li>
-                        <p>Definiciones a nivel de app para manipular procesos de forma eficiente para el servidor </p>
+                        <p>Definiciones a nivel de app para manipular procesos de forma eficiente para el servidor disponibilizando  ayudantes o "brazos"para trabajos en segundo plano. Resuelven promesas.</p>
+                        <ul>
+                            <li>auth.worker.ts</li>
+                            <p>Es una clase en donde su metodo addAuthUserToDB recibe 2 parametros un job y un callback. El job es un objeto que contiene algunos datos sobre un usuario de autenticación. La función de callback se llama cuando el job se termina o falla.</p>
+                            <li>email.worker.ts</li>
+                            <p></p>
+                            <li>user.worker.ts</li>
+                            <p></p>
+                        </ul>
                         <li>Helpers</li>
                         <p>Abstracciones de definiciones genericas que se utilizan en múltiples partes de la app que descongestionan el flujo principal</p>
                             <ul>
